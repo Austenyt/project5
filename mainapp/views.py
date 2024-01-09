@@ -31,9 +31,9 @@ def contact(request):
     return render(request, 'mainapp/contact.html', context)
 
 
-class StudentDetailView(DetailView):
-    model = Student
-    template_name = mainapp/student_detail.html
+# class StudentDetailView(DetailView):
+#     model = Student
+#     template_name = mainapp/student_detail.html
 
 
 def view_student(request, pk):
