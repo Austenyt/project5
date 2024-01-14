@@ -1,15 +1,13 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
 from mainapp.models import Student
 
 
-def index(request):
-    student_list = Student.objects.all()
-    context = {
-        'object_list': student_list,
-        'title': 'Главная'
-    }
-    return render(request, 'mainapp/index.html', context)
+class StudentListView(ListView):
+    model = Student
+    template_name = 'mainapp/index.html'
 
 
 def contact(request):
@@ -23,3 +21,14 @@ def contact(request):
         'title': 'Контакты'
     }
     return render(request, 'mainapp/contact.html', context)
+
+
+class StudentDetailView(DetailView):
+    model = Student
+    template_name = 'mainapp/student_detail.html'
+
+
+class StudentCreateView(CreateView):
+    model = Student
+    fields = ('first_name', 'last_name', 'avatar')
+    success_url = reverse_lazy('mainapp:index')
