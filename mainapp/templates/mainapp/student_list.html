@@ -18,11 +18,16 @@
                 <div class="btn-group">
                     <a href="{% url 'mainapp:view_student' object.pk %}"
                        class="btn btn-sm btn-outline-secondary">View</a>
-                    <a href="#" type="button"
+                    <a href="{% url 'mainapp:update_student' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">Edit</a>
-                    <a href="#" type="button"
+                    <a href="{% url 'mainapp:delete_student' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">Delete</a>
                 </div>
+                {% if object.is_active %}
+                    <a class="btn btn-warning" href="{% url 'mainapp:toggle_activity' object.pk %}">Деактивировать</a>
+                {% else %}
+                    <a class="btn btn-success" href="{% url 'mainapp:toggle_activity' object.pk %}">Деактивировать</a>
+                {% endif %}
             </div>
         </div>
     </div>
