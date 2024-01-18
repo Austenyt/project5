@@ -24,7 +24,6 @@ class MaterialUpdateView(UpdateView):
     fields = ('title', 'body',)
     # success_url = reverse_lazy('materials:list')
 
-
     def form_valid(self, form):
         if form.is_valid():
             new_mat = form.save()
