@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from mainapp.forms import StudentForm
+from mainapp.forms import StudentForm, SubjectForm
 from mainapp.models import Student, Subject
 
 
@@ -37,12 +37,13 @@ class StudentCreateView(CreateView):
 
 class StudentUpdateView(UpdateView):
     model = Student
-    fields = ('first_name', 'last_name', 'avatar')
+    # fields = ('first_name', 'last_name', 'avatar')
+    form_class = StudentForm
     success_url = reverse_lazy('mainapp:index')
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        subjectFormset = inlineformset_factory(Student, Subject, form=SubjectForm, extra=1)
+        SubjectFormset = inlineformset_factory(Student, Subject, form=SubjectForm, extra=1)
         if self.request.method == 'POST':
             context_data['formset'] = SubjectFormset(self.request.POST, instance=self.object)
         else:
@@ -57,10 +58,7 @@ class StudentUpdateView(UpdateView):
             formset.instance = self.object
             formset.save()
 
-            return super().form_valid(form)
-
-    context_data['formset'] = SubjectFormset()
-    return context_data
+        return super().form_valid(form)
 
 
 class StudentDeleteView(DeleteView):
