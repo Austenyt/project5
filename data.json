@@ -6,6 +6,7 @@
       "first_name": "Иван",
       "last_name": "Иванов",
       "avatar": "",
+      "email": null,
       "is_active": true
     }
   },
@@ -16,6 +17,7 @@
       "first_name": "Петр",
       "last_name": "Петров",
       "avatar": "",
+      "email": null,
       "is_active": true
     }
   },
@@ -26,6 +28,7 @@
       "first_name": "Семен",
       "last_name": "Семенов",
       "avatar": "",
+      "email": null,
       "is_active": false
     }
   },
@@ -36,6 +39,7 @@
       "first_name": "Олег",
       "last_name": "Маслов",
       "avatar": "",
+      "email": null,
       "is_active": true
     }
   },
@@ -46,7 +50,28 @@
       "first_name": "Ivan",
       "last_name": "Ivanov",
       "avatar": "",
+      "email": "test@sky.pro",
       "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.student",
+    "pk": 7,
+    "fields": {
+      "first_name": "NewTest",
+      "last_name": "NewTest",
+      "avatar": "students/Фото-0249.jpg",
+      "email": null,
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.subject",
+    "pk": 1,
+    "fields": {
+      "title": "авававаы",
+      "description": "авываываывавы",
+      "student": 5
     }
   }
 ]
