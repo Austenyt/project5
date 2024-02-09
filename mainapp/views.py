@@ -7,6 +7,15 @@ from mainapp.forms import StudentForm, SubjectForm
 from mainapp.models import Student, Subject
 
 
+def index(request):
+    student_list = Student.objects.all()
+    context = {
+        'object_list': student_list,
+        'title': 'Главная'
+    }
+    return render(request, 'main/index.html', context)
+
+
 class StudentListView(ListView):
     model = Student
 
