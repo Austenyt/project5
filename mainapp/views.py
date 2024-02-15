@@ -16,7 +16,7 @@ def index(request):
         'object_list': student_list,
         'title': 'Главная'
     }
-    return render(request, 'main/index.html', context)
+    return render(request, 'main/student_list.html', context)
 
 
 @login_required
@@ -40,6 +40,13 @@ class StudentListView(ListView):
 class StudentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Student
     permission_required = 'mainapp.view_student'
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        subject_list = None
+        self.object.subject_set.all()
+        context_data['subjects'] = subject_list
+        return context_data
 
 
 class StudentCreateView(LoginRequiredMixin, CreateView):
