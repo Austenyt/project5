@@ -18,15 +18,19 @@
                 <div class="btn-group">
                     <a href="{% url 'mainapp:view_student' object.pk %}"
                        class="btn btn-sm btn-outline-secondary">View</a>
+                    {% if perms.mainapp.change_student %}
                     <a href="{% url 'mainapp:update_student' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">Edit</a>
+                    {% endif %}
+                    {% if user.is_superuser %}
                     <a href="{% url 'mainapp:delete_student' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">Delete</a>
+                    {% endif %}
                 </div>
                 {% if object.is_active %}
-                    <a class="btn btn-warning" href="{% url 'mainapp:toggle_activity' object.pk %}">Деактивировать</a>
+                <a class="btn btn-warning" href="{% url 'mainapp:toggle_activity' object.pk %}">Деактивировать</a>
                 {% else %}
-                    <a class="btn btn-success" href="{% url 'mainapp:toggle_activity' object.pk %}">Деактивировать</a>
+                <a class="btn btn-success" href="{% url 'mainapp:toggle_activity' object.pk %}">Деактивировать</a>
                 {% endif %}
             </div>
         </div>

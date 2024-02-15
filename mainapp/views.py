@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -37,8 +37,9 @@ class StudentListView(ListView):
     model = Student
 
 
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Student
+    permission_required = 'mainapp.view_student'
 
 
 class StudentCreateView(LoginRequiredMixin, CreateView):
