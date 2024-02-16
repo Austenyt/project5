@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from mainapp.apps import MainappConfig
 from mainapp.views import contact, StudentListView, StudentDetailView, StudentCreateView, StudentUpdateView, \
@@ -7,7 +8,7 @@ from mainapp.views import contact, StudentListView, StudentDetailView, StudentCr
 app_name = MainappConfig.name
 
 urlpatterns = [
-    path('', StudentListView.as_view(), name='index'),
+    path('', cache_page(60)(StudentListView.as_view()), name='index'),
     path('contact/', contact, name='contact'),
     path('view/<int:pk>/', StudentDetailView.as_view(), name='view_student'),
     path('create/', StudentCreateView.as_view(), name='create_student'),
