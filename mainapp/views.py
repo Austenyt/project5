@@ -9,6 +9,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from config import settings
 from mainapp.forms import StudentForm, SubjectForm
 from mainapp.models import Student, Subject
+from mainapp.services import get_cached_subjects_for_student
 
 
 @login_required
@@ -45,16 +46,7 @@ class StudentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView)
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        if settings.CACHE_ENABLED:
-            key = f'subject_list{self.object.pk}'
-            subject_list = cache.get(key)
-            if subject_list is None:
-                self.object.subject_set.all()
-                cache.set(key, subject_list)
-        else:
-            subject_list = self.object.subject_set.all()
-
-        context_data['subjects'] = subject_list
+        context_data['subjects'] = get_cached_subjects_for_student(self.object.pk)
         return context_data
 
 
